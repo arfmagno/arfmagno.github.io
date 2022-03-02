@@ -1,7 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Helvetica+Neue);
 body{
     background-color:  #d8dabd;
-    font-family: "Helvetica Neue";
+    font-family: sans-serif, Arial;
 }
 .container {
     padding: 0 5% 0 5%;
