@@ -406,9 +406,17 @@
       <h2>Let's build something reliable.</h2>
       <p>I'm open to software engineer roles in Metro Manila or remote, and can start in December 2026.</p>
       <div class="cta center">
-        <a class="btn primary" id="mail" href="#contact">Email me</a>
+        <a class="btn primary" id="mail" href="#contact" aria-expanded="false" aria-controls="mail-panel">Email me</a>
         <a class="btn" href="https://www.linkedin.com/in/arfmagno/" target="_blank" rel="noopener">Message on LinkedIn</a>
         <a class="btn" href="https://github.com/arfmagno" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="mail-panel" id="mail-panel" hidden>
+        <code id="mail-addr"></code>
+        <div class="mail-actions">
+          <button class="btn small" id="mail-copy" type="button">Copy address</button>
+          <a class="btn small" id="mail-gmail" target="_blank" rel="noopener">Open in Gmail ↗</a>
+          <a class="btn small" id="mail-app">Use my mail app</a>
+        </div>
       </div>
     </div>
   </section>

@@ -344,3 +344,10 @@ li:hover .org-logo, .card:hover .org-logo { transform: translateY(-2px) rotate(-
   .js .roster-list li { opacity: 1; transform: none; }
   .roster-list li.live .ag-ico, .pipe li.run::after, .pipe li.done { animation: none; }
 }
+
+/* email panel */
+.mail-panel { margin: 20px auto 0; max-width: 460px; padding: 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); animation: mail-in .3s cubic-bezier(.2,.7,.2,1); }
+.mail-panel[hidden] { display: none; }
+.mail-panel code { display: block; font: 600 17px "JetBrains Mono", monospace; color: var(--text); margin-bottom: 12px; user-select: all; }
+.mail-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+@keyframes mail-in { from { opacity: 0; transform: translateY(-6px); } }

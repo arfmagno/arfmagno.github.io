@@ -18,7 +18,25 @@
     root.setAttribute('data-theme', next)
     try { localStorage.setItem('theme', next) } catch (e) {}
   })
-  $('#mail').href = 'mailto:' + ['arfmagno', 'gmail.com'].join('@')   // assembled here so simple scrapers miss it
+  // Email: assembled here so simple scrapers miss it. A mailto link does nothing
+  // on computers without a mail app, so the button opens a small panel instead:
+  // copy the address, write in Gmail, or use the mail app.
+  var addr = ['arfmagno', 'gmail.com'].join('@'), mail = $('#mail'), panel = $('#mail-panel')
+  mail.href = 'mailto:' + addr
+  $('#mail-addr').textContent = addr
+  $('#mail-app').href = 'mailto:' + addr
+  $('#mail-gmail').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(addr)
+  mail.addEventListener('click', function (e) {
+    e.preventDefault()
+    panel.hidden = !panel.hidden
+    mail.setAttribute('aria-expanded', String(!panel.hidden))
+  })
+  $('#mail-copy').addEventListener('click', function () {
+    var btn = this
+    function done (ok) { btn.textContent = ok ? 'Copied ✓' : 'Select and copy above'; setTimeout(function () { btn.textContent = 'Copy address' }, 2000) }
+    if (navigator.clipboard) navigator.clipboard.writeText(addr).then(function () { done(true) }, function () { done(false) })
+    else done(false)
+  })
   $('#year').textContent = new Date().getFullYear()
 
   // ---- scroll progress and active nav link ----
