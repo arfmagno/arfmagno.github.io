@@ -99,42 +99,6 @@
     })
   })
 
-  // ---- API key scope demo ----
-  var klog = $('#k-log')
-  $('#k-send').addEventListener('click', function () {
-    var key = $('#k-key').value, hotel = $('#k-hotel').value, out
-    var req = 'GET /hotels/' + hotel + '/rooms' + (key === 'none' ? '' : '\nx-api-key: hk_' + key + '_••••••')
-    if (key === 'none') out = '<span class="r">401 Unauthorized</span>\n{ "error": "missing API key" }'
-    else if (key !== hotel) out = '<span class="r">403 Forbidden</span>\n{ "error": "this key cannot access hotel ' + hotel + '" }'
-    else out = '<span class="g">200 OK</span>\n[ { "id": "deluxe-king", "maxGuests": 2 }, { "id": "family-suite", "maxGuests": 4 } ]'
-    klog.innerHTML = '<span class="m">' + esc(req) + '</span>\n' + out
-  })
-
-  // ---- translation failover demo ----
-  var flog = $('#f-log'), busy = false
-  function reset () { $$('#failover .node, #failover .stack-nodes span').forEach(function (n) { n.classList.remove('lit', 'ok', 'fail') }); $$('#failover .wire').forEach(function (w) { w.classList.remove('go') }) }
-  $('#f-send').addEventListener('click', async function () {
-    if (busy) return
-    busy = true; this.disabled = true; reset()
-    var p1 = $('#f-p1').checked, p2 = $('#f-p2').checked, t0 = Date.now(), out = []
-    var say = function (s) { out.push(s); flog.innerHTML = out.join('\n') }
-    var ms = function () { return '+' + (Date.now() - t0) + 'ms' }
-    $('#n-client').classList.add('lit'); say('POST /translate { text: "Ocean view", to: "fr" }')
-    await sleep(350); $('#w1').classList.add('go'); $('#n-svc').classList.add('lit')
-    await sleep(350); $('#w2').classList.add('go'); $('#n-p1').classList.add('lit'); say(ms() + '  try provider A')
-    await sleep(550)
-    if (p1) {
-      $('#n-p1').classList.add('ok'); say(ms() + '  provider A ✓  "Vue sur l’océan"'); say('200 OK  { text, to, fallbackUsed: false }')
-    } else {
-      $('#n-p1').classList.add('fail'); say(ms() + '  provider A ✗ timeout, trying the next provider')
-      await sleep(350); $('#n-p2').classList.add('lit'); say(ms() + '  try provider B')
-      await sleep(550)
-      if (p2) { $('#n-p2').classList.add('ok'); say(ms() + '  provider B ✓  "Vue sur l’océan"'); say('200 OK  { text, to, fallbackUsed: true }   same shape for the caller') }
-      else { $('#n-p2').classList.add('fail'); say(ms() + '  provider B ✗ unavailable'); say('503 Service Unavailable  { error: "all translation providers failed", retryable: true }') }
-    }
-    busy = false; this.disabled = false
-  })
-
   // ---- Hiyas demo in a phone frame ----
   // The demo's on-device database needs a cross-origin isolated page, which the
   // service worker (sw.js) provides. The first click may reload the page once.

@@ -259,7 +259,7 @@
   <section class="wrap section" id="work">
     <div class="head reveal">
       <h2>At SiteMinder</h2>
-      <p class="sub">What I built for a global hotel booking platform, described without the internal names. Two of the ideas are small live demos.</p>
+      <p class="sub">What I built for a global hotel booking platform, described without the internal names.</p>
     </div>
 
     <div class="cards two">
@@ -267,35 +267,12 @@
         <p class="tag">Public API · security</p>
         <h4>A public hotel-booking API</h4>
         <p>I built most of its read endpoints (hotel details, rooms, photos, rates and add-ons) so partner websites and a new booking app can sell rooms from one stable API. I also delivered <b>per-hotel API keys</b> end to end: database, authorization checks and a self-service key screen, so each key reaches only its own hotel's data.</p>
-        <div class="demo" id="keys">
-          <p class="demo-title">Try it: a key only reaches its own hotel</p>
-          <div class="toggles">
-            <label class="pick">API key<select id="k-key"><option value="a">Hotel A's key</option><option value="b">Hotel B's key</option><option value="none">No key</option></select></label>
-            <label class="pick">Request<select id="k-hotel"><option value="a">GET /hotels/a/rooms</option><option value="b">GET /hotels/b/rooms</option></select></label>
-            <button class="btn small" id="k-send">Send</button>
-          </div>
-          <pre class="log" id="k-log" aria-live="polite">Pick a key and a request, then press Send.</pre>
-        </div>
       </article>
 
       <article class="card big reveal">
         <p class="tag">New service · provider-agnostic</p>
         <h4>A translation microservice with failover</h4>
         <p>Built from an empty repository, with its infrastructure and deployment pipeline. Callers get one REST API and one response shape; behind it, each translation provider sits behind the same interface and they're tried in order. No caller depends on a specific vendor, and translation keeps working when a provider is down. Three internal systems use it.</p>
-        <div class="demo" id="failover">
-          <p class="demo-title">Try it: take a provider down</p>
-          <div class="toggles">
-            <label class="switch"><input type="checkbox" id="f-p1" checked><span></span>Provider A</label>
-            <label class="switch"><input type="checkbox" id="f-p2" checked><span></span>Provider B</label>
-            <button class="btn small" id="f-send">Translate "Ocean view" → French</button>
-          </div>
-          <div class="flow" aria-live="polite">
-            <span class="node" id="n-client">Client</span><span class="wire" id="w1"></span>
-            <span class="node" id="n-svc">Translation API</span><span class="wire" id="w2"></span>
-            <span class="node stack-nodes"><span id="n-p1">Provider A</span><span id="n-p2">Provider B</span></span>
-          </div>
-          <pre class="log" id="f-log">Press Translate to send a request.</pre>
-        </div>
       </article>
 
       <article class="card reveal">
