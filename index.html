@@ -1,21 +1,399 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="style.css">
-        <title>Raphael Magno</title>
-    </head>
-    <body>
-        <div class="container">
-            <h1 class="header">&lt; Hello World! &gt;</h1>
-            <h2 class="titles">Name: Ariel Raphael F. Magno
-                <br/>Nickname: Rafa</h2>
-            <h3 class="titles">Favorite CMSC Subject: CMSC 22
-                <div class="desc">Having completed both frontend and backend for the final project was the most satisfying experience</div></h3>
-            <h3 class="titles">Favorite GE Subject: ETHICS 1
-                <div class="desc">It challenged me to think out of the box and away from my comfort zone</div></h3>
-            <h3 class="titles">Favorite Programming Language: Python
-                <div class="desc">Python was very easy to learn and it got me to love Computer Science</div></h3>
-            <h3 class="titles">Favorite Food: Ebi Tempura</h3>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ariel Raphael Magno · Software Engineer</title>
+<meta name="description" content="Ariel Raphael Magno, full-stack software engineer in Metro Manila. Node.js, TypeScript and MySQL: public APIs, offline-first apps and reliable services.">
+<meta property="og:title" content="Ariel Raphael Magno · Software Engineer">
+<meta property="og:description" content="Full-stack software engineer. Public APIs, offline-first apps and reliable services in Node.js and TypeScript.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://arfmagno.github.io/assets/dental-dashboard.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5bd3'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='700' font-size='26' text-anchor='middle' fill='white'%3EAM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><span class="logo">AM</span>Ariel Raphael Magno</a>
+    <nav aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="#agents">Agents</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>Open to work · Metro Manila or remote</p>
+        <h1>I build APIs and apps that <span class="grad">keep working</span>.</h1>
+        <p class="lede">I'm <strong>Ariel Raphael Magno</strong>, a full-stack engineer working mainly in <strong>Node.js, TypeScript and MySQL</strong>. I spent two years at SiteMinder building public APIs and shared services for a global hotel booking platform, and I build offline-first apps on my own.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">See my projects</a>
+          <a class="btn" href="#contact">Get in touch</a>
+          <a class="icon-btn" href="https://www.linkedin.com/in/arfmagno/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg></a>
+          <a class="icon-btn" href="https://github.com/arfmagno" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg></a>
         </div>
-    </body>
+      </div>
+      <div class="term reveal" aria-label="Example call to a translation API with automatic fallback">
+        <div class="term-bar"><i></i><i></i><i></i><span>~/ariel</span></div>
+        <pre class="term-body"><code id="term"></code></pre>
+      </div>
+    </div>
+    <ul class="wrap facts reveal" aria-label="Highlights">
+      <li><b data-count="2">2</b><span>years at SiteMinder</span></li>
+      <li><b>JSNAD</b><span>certified Node.js developer</span></li>
+      <li><b>Magna Cum Laude</b><span>BS Computer Science, UPLB</span></li>
+    </ul>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="wrap section" id="projects">
+    <div class="head reveal">
+      <h2>Projects</h2>
+      <p class="sub">Things I've built end to end. The first two have live demos you can try in your browser.</p>
+    </div>
+
+    <article class="feature reveal">
+      <div class="feature-text">
+        <p class="tag">Offline-first web and desktop app · 2026</p>
+        <h3>Magno Dental Clinic</h3>
+        <p>Patient records, FDI dental charts, procedures and payments for a small clinic. It keeps working with no internet: everything saves on the device and syncs through a server the clinic hosts. It runs as an installable web app and as a Windows desktop program.</p>
+        <ul class="points">
+          <li><b>Generic offline sync:</b> dirty rows push, a paged change feed pulls, last write wins per row. A new table only needs declaring.</li>
+          <li><b>Security with a written threat model:</b> default-deny auth, an append-only audit log in the same transaction as each change, AES-256-GCM backups.</li>
+          <li><b>Quality gates in CI:</b> 105 unit and integration tests, 31 Playwright end-to-end tests, axe accessibility checks and Lighthouse score floors.</li>
+        </ul>
+        <p class="chips small"><span>TypeScript</span><span>React</span><span>Fastify</span><span>SQLite</span><span>IndexedDB</span><span>Electron</span><span>Docker</span><span>Playwright</span></p>
+        <div class="cta">
+          <a class="btn primary" href="https://arfmagno.github.io/dental-clinic-mgt-system/" target="_blank" rel="noopener">Try the live demo ↗</a>
+          <a class="btn" href="https://github.com/arfmagno/dental-clinic-mgt-system" target="_blank" rel="noopener">Source code</a>
+        </div>
+      </div>
+      <div class="gallery browser" data-gallery>
+        <div class="browser-bar"><i></i><i></i><i></i><span>dental-clinic-mgt-system</span></div>
+        <div class="shots">
+          <img src="assets/dental-dashboard.png" alt="Dental clinic dashboard" width="1280" height="800" loading="lazy" class="on">
+          <img src="assets/dental-dental-chart.png" alt="FDI dental chart with conditions drawn on each tooth" width="1280" height="800" loading="lazy">
+          <img src="assets/dental-reports.png" alt="Reports: collections, unpaid balances and common procedures" width="1280" height="800" loading="lazy">
+        </div>
+        <div class="thumbs" role="tablist" aria-label="Dental clinic screenshots">
+          <button role="tab" aria-selected="true">Dashboard</button>
+          <button role="tab" aria-selected="false">Dental chart</button>
+          <button role="tab" aria-selected="false">Reports</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="feature flip reveal">
+      <div class="feature-text">
+        <p class="tag">Offline-first Android app · 2026</p>
+        <h3>Hiyas: jewelry business records</h3>
+        <p><i>Hiyas</i> is Tagalog for "jewel". An app for running a small jewelry business: pieces with their parts, stones, costs and photos, clients, job orders with down payments, suppliers and stock. The phone's database is the source of truth and syncs in the background, all on always-free cloud tiers.</p>
+        <ul class="points">
+          <li><b>Describe an order in one message:</b> "Bea Ramos wants an 18K ring with a 3mm diamond, ₱18,000, 5k down". An LLM reads it online; a rule-based reader on the phone does the same offline.</li>
+          <li><b>Serverless on free tiers:</b> AWS Lambda, DynamoDB single-table design, Cognito, Cloudflare R2 photos and Workers AI design images, deployed with CDK and GitHub OIDC.</li>
+          <li><b>Tested on three levels:</b> Vitest and Jest units, two-device sync integration tests, Maestro end-to-end on an Android emulator.</li>
+        </ul>
+        <p class="chips small"><span>TypeScript</span><span>React Native</span><span>Expo</span><span>AWS Lambda</span><span>DynamoDB</span><span>AWS CDK</span><span>Cloudflare AI</span></p>
+        <div class="cta">
+          <a class="btn primary" href="https://arfmagno.github.io/jewelry-mgt-mobile-app/" target="_blank" rel="noopener" data-phone>Try the app ↗</a>
+          <a class="btn" href="https://github.com/arfmagno/jewelry-mgt-mobile-app" target="_blank" rel="noopener">Source code</a>
+        </div>
+      </div>
+      <div class="gallery phone" data-gallery>
+        <div class="shots">
+          <img src="assets/hiyas-assistant.gif" alt="Describing an order in one message to the assistant" width="360" height="800" loading="lazy" class="on">
+          <img src="assets/hiyas-pieces-light.png" alt="Pieces list in the light theme" width="540" height="1200" loading="lazy">
+          <img src="assets/hiyas-orders-dark.png" alt="Completed orders for a month, dark theme" width="540" height="1200" loading="lazy">
+        </div>
+        <div class="thumbs" role="tablist" aria-label="Hiyas screenshots">
+          <button role="tab" aria-selected="true">Assistant</button>
+          <button role="tab" aria-selected="false">Pieces</button>
+          <button role="tab" aria-selected="false">Orders</button>
+        </div>
+      </div>
+    </article>
+
+    <div class="filters reveal" role="group" aria-label="Filter projects by technology">
+      <button class="on" data-filter="all">All</button>
+      <button data-filter="ts">TypeScript</button>
+      <button data-filter="react">React / React Native</button>
+      <button data-filter="node">Node.js</button>
+      <button data-filter="aws">Cloud</button>
+    </div>
+    <div class="cards three" id="project-cards">
+      <article class="card reveal" data-tags="ts react node">
+        <p class="tag">Live demo</p>
+        <h4>Magno Dental Clinic</h4>
+        <p>Offline-first records, dental charts and payments; web, desktop and a static demo from one codebase.</p>
+        <p class="stack">React · Fastify · SQLite · Electron</p>
+        <a class="more" href="https://arfmagno.github.io/dental-clinic-mgt-system/" target="_blank" rel="noopener">Open demo ↗</a>
+      </article>
+      <article class="card reveal" data-tags="ts react aws node">
+        <p class="tag">Live demo</p>
+        <h4>Hiyas jewelry app</h4>
+        <p>Offline-first Android app with order-reading AI, serverless sync and free-tier cloud infrastructure.</p>
+        <p class="stack">React Native · Lambda · DynamoDB · CDK</p>
+        <a class="more" href="https://arfmagno.github.io/jewelry-mgt-mobile-app/" target="_blank" rel="noopener" data-phone>Try the app ↗</a>
+      </article>
+      <article class="card reveal" data-tags="react node aws">
+        <p class="tag">Undergraduate journal · live demo</p>
+        <h4>Volunteer Management System</h4>
+        <p>Matches volunteers and activities for UPLB Ugnayan ng Pahinungod by skills, interests and class schedule, using content-based filtering with cosine similarity. Scored 86.6 on the System Usability Scale with 35 users.</p>
+        <p class="stack">React · Express · MongoDB · S3</p>
+        <a class="more" href="vms/" target="_blank" rel="noopener">Try the demo ↗</a>
+      </article>
+      <article class="card reveal" data-tags="react node">
+        <p class="tag">Team project · backend</p>
+        <h4>PICSEL</h4>
+        <p>Scheduling, events and logistics for UPLB's Institute of Computer Science. I built the routers and REST APIs, Google sign-in and image hosting.</p>
+        <p class="stack">Express · React · PostgreSQL</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- AGENTS -->
+  <section class="wrap section" id="agents">
+    <div class="head reveal">
+      <p class="tag">Agentic engineering · 2026</p>
+      <h2>Agent Squad: AI agents with bounds they can't argue with</h2>
+      <p class="sub">Sixteen Claude Code agents with fixed roles that carry a ticket from investigation to a reviewed <b>draft</b> pull request, prove every step with evidence a script can check, argue against their own conclusions, and stop for a human only on exceptions. The core idea: <b>don't ask an agent to behave; set its bounds outside the agent.</b></p>
+    </div>
+
+    <div class="agent-grid">
+      <!-- pipeline simulator -->
+      <div class="sim card big reveal">
+        <div class="sim-head">
+          <h4>Run a ticket through the pipeline</h4>
+          <div class="sim-controls">
+            <label class="sr" for="scenario">Scenario</label>
+            <select id="scenario">
+              <option value="happy">Everything passes</option>
+              <option value="test-edit">Builder tries to edit a test</option>
+              <option value="reviewer-write">Reviewer tries to fix the code</option>
+              <option value="weak-tests">New tests also pass on the old code</option>
+              <option value="challenge">Challenger finds a real flaw</option>
+              <option value="push">Orchestrator pushes to main</option>
+            </select>
+            <button class="btn small primary" id="sim-run">▶ Run</button>
+          </div>
+        </div>
+        <ol class="pipe" id="pipe">
+          <li data-step="scout">Scout</li>
+          <li data-step="investigator">Investigator</li>
+          <li data-step="challenge1" class="ch">Challenger</li>
+          <li data-step="G1" class="gate">G1</li>
+          <li data-step="tester">Tester</li>
+          <li data-step="builder">Builder</li>
+          <li data-step="verifier">Verifier</li>
+          <li data-step="G2" class="gate">G2</li>
+          <li data-step="reviewers">Reviewers ×2</li>
+          <li data-step="G3" class="gate">G3</li>
+          <li data-step="evaluator">Evaluator</li>
+          <li data-step="observer" class="ob">Observer</li>
+          <li data-step="G4" class="gate">G4</li>
+          <li data-step="pr">Draft PR + review loop</li>
+          <li data-step="G5" class="gate">G5</li>
+          <li data-step="human" class="human">You review last</li>
+        </ol>
+        <pre class="log tall" id="sim-log" aria-live="polite">Pick a scenario and press Run.</pre>
+      </div>
+
+      <!-- bounds ladder -->
+      <div class="card reveal">
+        <h4>The enforcement ladder</h4>
+        <p>Start at the top. Only move down when the rung above is impossible.</p>
+        <div class="ladder" role="tablist" aria-label="Enforcement ladder">
+          <button role="tab" aria-selected="true" data-rung="0"><b>1</b> Remove the capability</button>
+          <button role="tab" aria-selected="false" data-rung="1"><b>2</b> Precondition outside the agent</button>
+          <button role="tab" aria-selected="false" data-rung="2"><b>3</b> Validate at write time</button>
+          <button role="tab" aria-selected="false" data-rung="3"><b>4</b> Detect and force a redo</button>
+          <button role="tab" aria-selected="false" data-rung="4"><b>5</b> Ask in a prompt</button>
+        </div>
+        <div class="rung" id="rung" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="cards three tight">
+      <article class="card reveal"><p class="tag">Separation of duties</p><h4>The checker is never the maker</h4><p>The tester writes failing contract tests first; the builder can only write application code. That's decided by file path on every write, so it isn't a request in a prompt.</p></article>
+      <article class="card reveal"><p class="tag">Verify, don't trust</p><h4>Evidence a script can check</h4><p>The verifier re-runs every check itself, and its commands must appear in the harness's own transcript. A negative control proves the new tests fail on the old code.</p></article>
+      <article class="card reveal"><p class="tag">Debate on evidence</p><h4>A challenger with the opposite incentive</h4><p>It steelmans, then attacks each claim with evidence that exists. Upheld counters send work back; after two rounds, a human decides.</p></article>
+      <article class="card reveal"><p class="tag">Observability</p><h4>An observer and efficiency metrics</h4><p>A script replays every tool call from the transcripts (scope creep, workarounds, stale evidence), and an LLM judges what a script can't. Prompt changes only after a lesson recurs on two tickets.</p></article>
+    </div>
+
+    <div class="roster reveal">
+      <div class="roster-head">
+        <h4>Sixteen roles, each on the cheapest model that can do the job</h4>
+        <div class="filters mini" role="group" aria-label="Filter by model tier">
+          <button class="on" data-tier="all">All</button>
+          <button data-tier="haiku">Fast tier</button>
+          <button data-tier="sonnet">Mid tier</button>
+          <button data-tier="opus">Strongest tier</button>
+        </div>
+      </div>
+      <ul class="roster-list" id="roster"></ul>
+      <p class="note">Honest status: built and tested against synthetic transcripts, a real local git repository and a fake GitHub CLI. The first run on a real ticket is still pending, and model tiers and budgets are first guesses until there's history.</p>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="wrap section" id="work">
+    <div class="head reveal">
+      <h2>At SiteMinder</h2>
+      <p class="sub">What I built for a global hotel booking platform, described without the internal names. Two of the ideas are small live demos.</p>
+    </div>
+
+    <div class="cards two">
+      <article class="card big reveal">
+        <p class="tag">Public API · security</p>
+        <h4>A public hotel-booking API</h4>
+        <p>I built most of its read endpoints (hotel details, rooms, photos, rates and add-ons) so partner websites and a new booking app can sell rooms from one stable API. I also delivered <b>per-hotel API keys</b> end to end: database, authorization checks and a self-service key screen, so each key reaches only its own hotel's data.</p>
+        <div class="demo" id="keys">
+          <p class="demo-title">Try it: a key only reaches its own hotel</p>
+          <div class="toggles">
+            <label class="pick">API key<select id="k-key"><option value="a">Hotel A's key</option><option value="b">Hotel B's key</option><option value="none">No key</option></select></label>
+            <label class="pick">Request<select id="k-hotel"><option value="a">GET /hotels/a/rooms</option><option value="b">GET /hotels/b/rooms</option></select></label>
+            <button class="btn small" id="k-send">Send</button>
+          </div>
+          <pre class="log" id="k-log" aria-live="polite">Pick a key and a request, then press Send.</pre>
+        </div>
+      </article>
+
+      <article class="card big reveal">
+        <p class="tag">New service · provider-agnostic</p>
+        <h4>A translation microservice with failover</h4>
+        <p>Built from an empty repository, with its infrastructure and deployment pipeline. Callers get one REST API and one response shape; behind it, each translation provider sits behind the same interface and they're tried in order. No caller depends on a specific vendor, and translation keeps working when a provider is down. Three internal systems use it.</p>
+        <div class="demo" id="failover">
+          <p class="demo-title">Try it: take a provider down</p>
+          <div class="toggles">
+            <label class="switch"><input type="checkbox" id="f-p1" checked><span></span>Provider A</label>
+            <label class="switch"><input type="checkbox" id="f-p2" checked><span></span>Provider B</label>
+            <button class="btn small" id="f-send">Translate "Ocean view" → French</button>
+          </div>
+          <div class="flow" aria-live="polite">
+            <span class="node" id="n-client">Client</span><span class="wire" id="w1"></span>
+            <span class="node" id="n-svc">Translation API</span><span class="wire" id="w2"></span>
+            <span class="node stack-nodes"><span id="n-p1">Provider A</span><span id="n-p2">Provider B</span></span>
+          </div>
+          <pre class="log" id="f-log">Press Translate to send a request.</pre>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <p class="tag">Data sync</p>
+        <h4>Keeping two products in agreement</h4>
+        <p>Automated syncing of check-in times, room categories and occupancy limits between two products, with a backfill for existing hotels and a batched re-sync that retries temporary errors and reports permanent ones.</p>
+        <p class="stack">Data sync · backfills · retries</p>
+      </article>
+      <article class="card reveal">
+        <p class="tag">Reliability</p>
+        <h4>Failures you hear about first</h4>
+        <p>Metrics and Terraform-managed alerts for sync failures, clear 4xx/422 errors instead of 500s, input validation, a fix for a crash caused by emoji in promo codes, and card details removed from an API response.</p>
+        <p class="stack">Monitoring · alerting · validation</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="wrap section" id="experience">
+    <div class="head reveal"><h2>Experience</h2></div>
+    <ol class="timeline">
+      <li class="reveal">
+        <div class="when">Oct 2024 – Nov 2026</div>
+        <div>
+          <h4>Junior Software Engineer · <span>SiteMinder</span></h4>
+          <p class="muted">Global hotel booking and distribution platform · Makati, hybrid</p>
+          <ul>
+            <li>Built public API endpoints and per-hotel API keys used by partner websites and a new booking app.</li>
+            <li>Created a provider-agnostic translation microservice with automatic fallback, now used by three internal systems.</li>
+            <li>Automated data syncing between products and added sync-failure alerting.</li>
+            <li>Laid the data foundation for a new discount feature, choosing the money column type after checking production data.</li>
+            <li>Upgraded services to Node 24.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="reveal">
+        <div class="when">Jun 2023 – Aug 2023</div>
+        <div>
+          <h4>Web Development Intern · <span>TimeFree Innovations</span></h4>
+          <p class="muted">Makati</p>
+          <ul><li>Built responsive pages, backend features and database work for a document and meeting management platform for a local government unit (AngularJS, PrimeNG, ASP.NET).</li></ul>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="wrap section" id="skills">
+    <div class="head reveal"><h2>Skills</h2></div>
+    <div class="skills reveal">
+      <div><h4>Core</h4><p class="chips"><span>TypeScript</span><span>JavaScript</span><span>Node.js</span><span>Express</span><span>Fastify</span><span>MySQL</span><span>REST APIs</span><span>GraphQL</span></p></div>
+      <div><h4>Apps and frontend</h4><p class="chips"><span>React</span><span>React Native / Expo</span><span>Vue</span><span>Angular</span><span>PWA / offline-first</span><span>Electron</span></p></div>
+      <div><h4>Data and cloud</h4><p class="chips"><span>SQLite</span><span>PostgreSQL</span><span>MongoDB</span><span>DynamoDB</span><span>AWS Lambda</span><span>AWS CDK</span><span>Terraform</span><span>Docker</span></p></div>
+      <div><h4>Also worked with</h4><p class="chips"><span>Ruby on Rails</span><span>Kotlin</span><span>Databricks</span><span>Monitoring and alerting</span><span>Playwright</span><span>Agile (Scrum)</span></p></div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="wrap section" id="education">
+    <div class="head reveal"><h2>Education and certification</h2></div>
+    <div class="cards two">
+      <article class="card reveal">
+        <h4>BS Computer Science, Magna Cum Laude</h4>
+        <p class="muted">University of the Philippines Los Baños · 2020 – 2024</p>
+        <p>GWA 1.4050 (1.0 is the highest). President of the UPLB Computer Science Society (2022–2023), where I also led the society's job fair; officer of AIESEC UPLB (2023–2024).</p>
+      </article>
+      <article class="card reveal">
+        <h4>OpenJS Node.js Application Developer (JSNAD)</h4>
+        <p class="muted">The Linux Foundation · Apr 2025, valid to Apr 2027</p>
+        <p>A hands-on, performance-based exam on Node.js core APIs, asynchronous patterns, streams, buffers, error handling and the module system.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="wrap section" id="contact">
+    <div class="contact reveal">
+      <h2>Let's build something reliable.</h2>
+      <p>I'm open to software engineer roles in Metro Manila or remote, and can start in December 2026.</p>
+      <div class="cta center">
+        <a class="btn primary" id="mail" href="#contact">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/arfmagno/" target="_blank" rel="noopener">Message on LinkedIn</a>
+        <a class="btn" href="https://github.com/arfmagno" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p>© <span id="year">2026</span> Ariel Raphael Magno</p>
+  <p><a href="#top">Back to top ↑</a></p>
+</footer>
+
+<dialog class="phone-modal" id="phone-modal" aria-label="Hiyas app demo">
+  <button class="pm-close" id="pm-close" type="button" aria-label="Close demo">×</button>
+  <div class="device"><iframe id="pm-frame" title="Hiyas app demo" allow="cross-origin-isolated"></iframe></div>
+  <p class="pm-note">The app's demo build, running in a phone-sized screen. <a href="https://arfmagno.github.io/jewelry-mgt-mobile-app/" target="_blank" rel="noopener">Open in a new tab ↗</a></p>
+</dialog>
+<script src="app.js"></script>
+</body>
 </html>
