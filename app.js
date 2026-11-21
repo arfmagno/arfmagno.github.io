@@ -204,7 +204,46 @@
     ['Curator', 'sonnet', 'Grows the knowledge base']
   ]
   var tierName = { haiku: 'fast', sonnet: 'mid', opus: 'strongest' }
-  $('#roster').innerHTML = roster.map(function (r) { return '<li data-tier="' + r[1] + '"><span class="tier ' + r[1] + '">' + tierName[r[1]] + '</span><b>' + r[0] + '</b><span>' + r[2] + '</span></li>' }).join('')
+  // A small line icon per role (24x24, stroked).
+  var icons = {
+    Scout: '<circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/>',
+    Investigator: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M14 3v5h5"/><circle cx="16" cy="16" r="3"/><path d="m21 21-2.8-2.8"/>',
+    Architect: '<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/>',
+    Challenger: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>',
+    Tester: '<path d="M9 3h6"/><path d="M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7 15h10"/>',
+    Builder: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4 2.5-2.5Z"/>',
+    Verifier: '<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+    Reviewer: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+    'Security reviewer': '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+    Evaluator: '<path d="M12 3v18"/><path d="M5 21h14"/><path d="m5 7 7-2 7 2"/><path d="M5 7 2 14a3 3 0 0 0 6 0L5 7Z"/><path d="m19 7-3 7a3 3 0 0 0 6 0l-3-7Z"/>',
+    Observer: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
+    Triager: '<circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 7v10"/><path d="M18 11c0 4-6 3-12 6"/>',
+    'CI watcher': '<path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/>',
+    Metrics: '<path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/>',
+    Scribe: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+    Curator: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>'
+  }
+  $('#roster').innerHTML = roster.map(function (r, i) {
+    return '<li data-tier="' + r[1] + '" data-name="' + r[0] + '" style="--i:' + i + '"><span class="ag-ico" aria-hidden="true"><svg viewBox="0 0 24 24">' + (icons[r[0]] || '') + '</svg></span>' +
+      '<span class="tier ' + r[1] + '">' + tierName[r[1]] + '</span><b>' + r[0] + '</b><span>' + r[2] + '</span></li>'
+  }).join('')
+  // Cards light up where the pointer is, and fade in one after another.
+  $$('#roster li').forEach(function (li) {
+    li.addEventListener('pointermove', function (e) {
+      var b = li.getBoundingClientRect()
+      li.style.setProperty('--mx', (e.clientX - b.left) + 'px'); li.style.setProperty('--my', (e.clientY - b.top) + 'px')
+    })
+  })
+  if ('IntersectionObserver' in window) {
+    var rio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { $('#roster').classList.add('in'); rio.disconnect() } }, { threshold: 0.15 })
+    rio.observe($('#roster'))
+  } else $('#roster').classList.add('in')
+  // While the simulator runs a step, the agents doing it glow in the roster.
+  var stepAgents = { scout: ['Scout'], investigator: ['Investigator'], challenge1: ['Challenger'], tester: ['Tester'], builder: ['Builder'], verifier: ['Verifier'],
+    reviewers: ['Reviewer', 'Security reviewer'], evaluator: ['Evaluator', 'Challenger'], observer: ['Observer'], pr: ['Triager', 'CI watcher'], human: ['Scribe'] }
+  function liveAgents (st) {
+    $$('#roster li').forEach(function (li) { li.classList.toggle('live', !!st && (stepAgents[st] || []).indexOf(li.dataset.name) >= 0) })
+  }
   $$('.filters.mini button').forEach(function (b) {
     b.addEventListener('click', function () {
       $$('.filters.mini button').forEach(function (x) { x.classList.toggle('on', x === b) })
@@ -250,7 +289,7 @@
     var say = function (s) { out.push(s); slog.innerHTML = out.join('\n'); slog.scrollTop = slog.scrollHeight }
     for (var i = 0; i < steps.length; i++) {
       var li = lis[i], st = steps[i]
-      li.classList.add('run'); await sleep(320)
+      li.classList.add('run'); liveAgents(st); await sleep(320)
       li.classList.remove('run')
       if (sc.at === st && !redone) {
         li.classList.add(sc.kind); say(sc.msg)
@@ -264,6 +303,6 @@
       }
       li.classList.add('done'); say(notes[st])
     }
-    running = false; this.disabled = false
+    liveAgents(null); running = false; this.disabled = false
   })
 })()

@@ -296,3 +296,51 @@ h4 { font-size: 18px; letter-spacing: -.01em; margin: 0 0 8px; line-height: 1.35
   .st-bar { left: 10px; right: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .showcase-viewport, .showcase-track, .showcase .feature.slide { transition: none; } .showcase .feature.slide.on .gallery { animation: none; } }
+
+/* organisation logos (experience, education) */
+.org { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
+.org h4 { margin: 0; }
+.org-logo { flex: 0 0 44px; width: 44px; height: 44px; object-fit: contain; padding: 7px; border-radius: 12px; background: #fff; border: 1px solid var(--line);
+  box-shadow: 0 4px 14px -6px rgba(0,0,0,.35); transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s; }
+li:hover .org-logo, .card:hover .org-logo { transform: translateY(-2px) rotate(-4deg) scale(1.06); box-shadow: 0 10px 22px -8px rgba(47,91,211,.45); }
+.timeline > li > div > .muted, .card .org + .muted { margin-top: 6px; }
+
+/* agent roster: icons, tier glow, staggered entrance, live highlight */
+.roster-list li { --t: var(--accent); position: relative; overflow: hidden; display: grid; grid-template-columns: 38px 1fr; column-gap: 12px; align-items: start;
+  transition: opacity .25s, transform .3s cubic-bezier(.2,.7,.2,1), border-color .3s, box-shadow .3s, background .3s; }
+.roster-list li { --g1: #3d6cf0; --g2: #1d3a8f; }
+.roster-list li[data-tier="haiku"] { --t: #12805c; --g1: #17a676; --g2: #0a5139; }
+.roster-list li[data-tier="opus"] { --t: var(--accent-2); --g1: #9466ff; --g2: #4a22c9; }
+.roster-list li .tier { justify-self: start; }
+.roster-list li > :not(.ag-ico) { grid-column: 2; }
+.roster-list .ag-ico { grid-row: 1 / span 3; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; color: #fff;
+  background: linear-gradient(135deg, var(--g1), var(--g2)); box-shadow: 0 6px 16px -8px var(--g1), inset 0 1px 0 rgba(255,255,255,.25); transition: transform .4s cubic-bezier(.3,1.6,.5,1); }
+.roster-list .ag-ico svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.roster-list li::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s;
+  background: radial-gradient(220px 120px at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--t) 22%, transparent), transparent 70%); }
+.roster-list li::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--t), transparent);
+  transform: scaleX(0); transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+.roster-list li:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--t) 50%, var(--line)); box-shadow: 0 14px 30px -16px var(--t); background: var(--surface); }
+.roster-list li:hover::before, .roster-list li.live::before { opacity: 1; }
+.roster-list li:hover::after, .roster-list li.live::after { transform: scaleX(1); }
+.roster-list li:hover .ag-ico { transform: rotate(-8deg) scale(1.12); }
+.roster-list li.live { border-color: var(--t); box-shadow: 0 0 0 3px color-mix(in srgb, var(--t) 22%, transparent), 0 14px 30px -16px var(--t); }
+.roster-list li.live .ag-ico { animation: ag-pulse 1s ease-in-out infinite; }
+@keyframes ag-pulse { 50% { transform: scale(1.14); box-shadow: 0 0 0 6px color-mix(in srgb, var(--t) 25%, transparent); } }
+.js .roster-list li { opacity: 0; transform: translateY(14px) scale(.98); }
+.js .roster-list.in li { opacity: 1; transform: none; transition-delay: calc(var(--i) * 45ms); }
+.js .roster-list.in li:hover { transform: translateY(-4px); transition-delay: 0s; }
+.js .roster-list.in li.dim { opacity: .25; }
+
+/* pipeline steps: a light sweep while a step runs */
+.pipe li { overflow: hidden; }
+.pipe li.run::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 20%, color-mix(in srgb, var(--accent) 30%, transparent) 50%, transparent 80%);
+  transform: translateX(-100%); animation: pipe-sweep .6s ease-out; }
+@keyframes pipe-sweep { to { transform: translateX(100%); } }
+.pipe li.done { animation: pipe-pop .35s cubic-bezier(.3,1.6,.5,1); }
+@keyframes pipe-pop { 40% { transform: scale(1.08); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .roster-list li { opacity: 1; transform: none; }
+  .roster-list li.live .ag-ico, .pipe li.run::after, .pipe li.done { animation: none; }
+}
