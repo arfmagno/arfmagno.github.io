@@ -90,34 +90,48 @@
     if (!reduce) timer = setInterval(function () { show((i + 1) % imgs.length) }, 4500)
   })
 
-  // ---- featured projects: tabs, arrows, swipe ----
+  // ---- featured projects: tabs, swipe, auto-advance ----
+  // Advances when the active tab's progress bar finishes filling (a CSS
+  // animation). Pauses on hover or focus, off screen, and in a hidden tab.
   $$('[data-showcase]').forEach(function (sc) {
     var vp = $('.showcase-viewport', sc), track = $('.showcase-track', sc), slides = $$('.slide', sc)
-    var tabs = $$('.showcase-tabs button', sc), count = $('.showcase-count', sc), cur = 0
+    var tabs = $$('.showcase-tabs button', sc), cur = 0
+    var hold = { hover: false, focus: false, away: true, hidden: false }
     function fit () { vp.style.height = slides[cur].offsetHeight + 'px' }
+    function sync () { sc.classList.toggle('paused', hold.hover || hold.focus || hold.away || hold.hidden) }
     function go (n) {
       cur = (n + slides.length) % slides.length
       track.style.transform = 'translateX(' + (-100 * cur) + '%)'
       tabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === cur)); t.tabIndex = k === cur ? 0 : -1 })
-      slides.forEach(function (s, k) { s.setAttribute('aria-hidden', String(k !== cur)); s.inert = k !== cur })
-      count.textContent = (cur + 1) + ' / ' + slides.length
+      slides.forEach(function (s, k) { s.classList.toggle('on', k === cur); s.setAttribute('aria-hidden', String(k !== cur)); s.inert = k !== cur })
       fit()
     }
-    tabs.forEach(function (t, k) { t.addEventListener('click', function () { go(k) }) })
-    $$('.arrow', sc).forEach(function (a) { a.addEventListener('click', function () { go(cur + Number(a.dataset.dir)) }) })
+    if (!reduce) sc.classList.add('auto')
+    tabs.forEach(function (t, k) {
+      t.addEventListener('click', function () { go(k); t.blur() })
+      $('.st-bar i', t).addEventListener('animationend', function () { if (k === cur) go(cur + 1) })
+    })
     $('.showcase-tabs', sc).addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { go(cur + (e.key === 'ArrowRight' ? 1 : -1)); tabs[cur].focus() }
     })
+    vp.addEventListener('mouseenter', function () { hold.hover = true; sync() })
+    vp.addEventListener('mouseleave', function () { hold.hover = false; sync() })
+    sc.addEventListener('focusin', function (e) { hold.focus = e.target.matches(':focus-visible'); sync() })
+    sc.addEventListener('focusout', function () { hold.focus = false; sync() })
+    document.addEventListener('visibilitychange', function () { hold.hidden = document.hidden; sync() })
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { hold.away = !es[0].isIntersecting; sync() }, { threshold: 0.35 }).observe(vp)
+    else hold.away = false
     var x0 = null, y0 = 0
     vp.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY }, { passive: true })
     vp.addEventListener('touchend', function (e) {
       if (x0 === null) return
-      var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null
+      var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0
+      x0 = null
       if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1))
     }, { passive: true })
     window.addEventListener('resize', fit)
     $$('img', sc).forEach(function (im) { im.addEventListener('load', fit) })
-    go(0)
+    go(0); sync()
   })
 
   // ---- project filters ----

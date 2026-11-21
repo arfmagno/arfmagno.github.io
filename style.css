@@ -256,18 +256,43 @@ h4 { font-size: 18px; letter-spacing: -.01em; margin: 0 0 8px; line-height: 1.35
 .pm-note { text-align: center; color: #c9d1e0; font-size: 13.5px; margin: 12px 0 0; }
 .pm-note a { color: #9db7ff; }
 
-/* featured projects: one at a time, sliding sideways */
-.showcase { margin-bottom: 26px; }
-.showcase-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
-.showcase-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-.showcase-tabs button { font: 600 13.5px Inter, sans-serif; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 99px; padding: 8px 14px; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
-.showcase-tabs button:hover { color: var(--text); }
-.showcase-tabs button[aria-selected="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
-.showcase-arrows { display: flex; align-items: center; gap: 8px; }
-.showcase-count { font: 600 12.5px "JetBrains Mono", monospace; color: var(--muted); min-width: 40px; text-align: center; }
-.arrow { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--text); font: 600 20px/1 Inter, sans-serif; cursor: pointer; display: grid; place-items: center; padding-bottom: 2px; }
-.arrow:hover { border-color: var(--accent); color: var(--accent); }
-.showcase-viewport { overflow: hidden; border-radius: 22px; transition: height .45s ease; }
-.showcase-track { display: flex; align-items: flex-start; transition: transform .45s ease; touch-action: pan-y; }
-.showcase .feature.slide { flex: 0 0 100%; min-width: 0; margin-bottom: 0; box-shadow: none; }
-@media (prefers-reduced-motion: reduce) { .showcase-viewport, .showcase-track { transition: none; } }
+/* featured projects: one at a time, sliding sideways, auto-advancing */
+.showcase { margin-bottom: 26px; --dur: 9s; }
+.showcase-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.showcase-tabs button { --c: var(--accent); position: relative; overflow: hidden; display: flex; align-items: center; gap: 12px; text-align: left; padding: 14px 16px 18px; border-radius: 16px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted); font: inherit; transition: border-color .3s, background .3s, color .3s, transform .3s, box-shadow .3s; }
+.showcase-tabs button:hover { color: var(--text); transform: translateY(-2px); }
+.showcase-tabs button[aria-selected="true"] { color: var(--text); border-color: color-mix(in srgb, var(--c) 55%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--c) 16%, var(--surface)), var(--surface) 70%);
+  box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--c) 60%, transparent); }
+.st-num { font: 700 13px "JetBrains Mono", monospace; color: var(--c); opacity: .55; transition: opacity .3s; }
+[aria-selected="true"] .st-num { opacity: 1; }
+.st-text { display: grid; gap: 2px; min-width: 0; }
+.st-text b { font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st-text small { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st-bar { position: absolute; left: 16px; right: 16px; bottom: 8px; height: 3px; border-radius: 99px; background: color-mix(in srgb, var(--c) 14%, transparent); overflow: hidden; opacity: 0; transition: opacity .3s; }
+.st-bar i { display: block; height: 100%; width: 100%; transform-origin: left; transform: scaleX(0); border-radius: inherit; background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 50%, #fff)); }
+[aria-selected="true"] .st-bar { opacity: 1; }
+.showcase.auto [aria-selected="true"] .st-bar i { animation: st-fill var(--dur) linear forwards; }
+.showcase.auto.paused [aria-selected="true"] .st-bar i { animation-play-state: paused; }
+.showcase:not(.auto) [aria-selected="true"] .st-bar i { transform: scaleX(1); }
+@keyframes st-fill { to { transform: scaleX(1); } }
+.showcase-viewport { overflow: hidden; border-radius: 22px; transition: height .5s cubic-bezier(.2,.7,.2,1); }
+.showcase-track { display: flex; align-items: flex-start; transition: transform .7s cubic-bezier(.65,0,.25,1); touch-action: pan-y; }
+.showcase .feature.slide { --c: var(--accent); position: relative; flex: 0 0 100%; min-width: 0; margin-bottom: 0; box-shadow: none; overflow: hidden;
+  border-color: color-mix(in srgb, var(--c) 35%, var(--line)); transition: opacity .6s, transform .7s cubic-bezier(.65,0,.25,1); }
+.showcase .feature.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(600px 300px at 100% 0%, color-mix(in srgb, var(--c) 18%, transparent), transparent 70%),
+              radial-gradient(500px 260px at 0% 100%, color-mix(in srgb, var(--c) 10%, transparent), transparent 70%); }
+.showcase .feature.slide > * { position: relative; z-index: 1; }
+.showcase .feature.slide:not(.on) { opacity: .25; transform: scale(.94); }
+.showcase .feature.slide.on .gallery { animation: st-rise .8s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes st-rise { from { opacity: 0; transform: translateY(24px) scale(.97); } }
+@media (max-width: 760px) {
+  .showcase-tabs { gap: 6px; }
+  .showcase-tabs button { flex-direction: column; align-items: flex-start; gap: 4px; padding: 10px 10px 16px; }
+  .st-text small { display: none; }
+  .st-text b { font-size: 12.5px; white-space: normal; }
+  .st-bar { left: 10px; right: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .showcase-viewport, .showcase-track, .showcase .feature.slide { transition: none; } .showcase .feature.slide.on .gallery { animation: none; } }
