@@ -69,8 +69,38 @@
   <section class="wrap section" id="projects">
     <div class="head reveal">
       <h2>Projects</h2>
-      <p class="sub">Things I've built end to end. The first two have live demos you can try in your browser.</p>
+      <p class="sub">Things I've built end to end. The three featured here have live demos you can try in your browser.</p>
     </div>
+
+    <article class="feature reveal">
+      <div class="feature-text">
+        <p class="tag">Undergraduate research · full-stack web app</p>
+        <h3>Volunteer Management System</h3>
+        <p>A web app for UPLB Ugnayan ng Pahinungod, the university's volunteer service program. Volunteers sign up, join activities and get recommendations; administrators manage activities, announcements and volunteer records in one place.</p>
+        <ul class="points">
+          <li><b>Recommendations that fit:</b> content-based filtering with cosine similarity matches volunteers and activities by skills, program interests and class schedule.</li>
+          <li><b>Rated by real users:</b> an average System Usability Scale score of 86.6 out of 100 from 35 respondents.</li>
+          <li><b>A demo with no server:</b> the live demo runs the real Express routes and controllers in the browser over a MongoDB stand-in, so the backend's 35 tests also pass against it.</li>
+        </ul>
+        <p class="chips small"><span>JavaScript</span><span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>AWS S3</span><span>Vite</span></p>
+        <div class="cta">
+          <a class="btn primary" href="vms/" target="_blank" rel="noopener">Try the live demo ↗</a>
+        </div>
+      </div>
+      <div class="gallery browser" data-gallery>
+        <div class="browser-bar"><i></i><i></i><i></i><span>volunteer-management-system</span></div>
+        <div class="shots">
+          <img src="assets/vms-admin-dashboard.png" alt="Admin dashboard with ongoing activities and participation chart" width="1280" height="800" loading="lazy" class="on">
+          <img src="assets/vms-activities.png" alt="Activities a volunteer can join, with dates, places and open slots" width="1280" height="800" loading="lazy">
+          <img src="assets/vms-logs.png" alt="Searchable, paged activity log for administrators" width="1280" height="800" loading="lazy">
+        </div>
+        <div class="thumbs" role="tablist" aria-label="Volunteer Management System screenshots">
+          <button role="tab" aria-selected="true">Admin dashboard</button>
+          <button role="tab" aria-selected="false">Activities</button>
+          <button role="tab" aria-selected="false">Activity log</button>
+        </div>
+      </div>
+    </article>
 
     <article class="feature reveal">
       <div class="feature-text">
@@ -141,6 +171,13 @@
       <button data-filter="aws">Cloud</button>
     </div>
     <div class="cards three" id="project-cards">
+      <article class="card reveal" data-tags="react node aws">
+        <p class="tag">Undergraduate journal · live demo</p>
+        <h4>Volunteer Management System</h4>
+        <p>Matches volunteers and activities for UPLB Ugnayan ng Pahinungod by skills, interests and class schedule, using content-based filtering with cosine similarity. Scored 86.6 on the System Usability Scale with 35 users.</p>
+        <p class="stack">React · Express · MongoDB · S3</p>
+        <a class="more" href="vms/" target="_blank" rel="noopener">Try the demo ↗</a>
+      </article>
       <article class="card reveal" data-tags="ts react node">
         <p class="tag">Live demo</p>
         <h4>Magno Dental Clinic</h4>
@@ -154,13 +191,6 @@
         <p>Offline-first Android app with order-reading AI, serverless sync and free-tier cloud infrastructure.</p>
         <p class="stack">React Native · Lambda · DynamoDB · CDK</p>
         <a class="more" href="https://arfmagno.github.io/jewelry-mgt-mobile-app/" target="_blank" rel="noopener" data-phone>Try the app ↗</a>
-      </article>
-      <article class="card reveal" data-tags="react node aws">
-        <p class="tag">Undergraduate journal · live demo</p>
-        <h4>Volunteer Management System</h4>
-        <p>Matches volunteers and activities for UPLB Ugnayan ng Pahinungod by skills, interests and class schedule, using content-based filtering with cosine similarity. Scored 86.6 on the System Usability Scale with 35 users.</p>
-        <p class="stack">React · Express · MongoDB · S3</p>
-        <a class="more" href="vms/" target="_blank" rel="noopener">Try the demo ↗</a>
       </article>
       <article class="card reveal" data-tags="react node">
         <p class="tag">Team project · backend</p>
