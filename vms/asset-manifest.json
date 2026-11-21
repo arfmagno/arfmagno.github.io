@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/vms/static/css/main.7bd9ddd5.css",
-    "main.js": "/vms/static/js/main.ceedbd30.js",
+    "main.js": "/vms/static/js/main.76dcd4f5.js",
     "static/media/bg-pahinungod3.jpg": "/vms/static/media/bg-pahinungod3.81877c3ee385ffae45b4.jpg",
     "static/media/bg-pahinungod.jpg": "/vms/static/media/bg-pahinungod.95564b5a5a8cea18ce8f.jpg",
     "static/media/bg-pahinungod2.jpg": "/vms/static/media/bg-pahinungod2.d821bd395d288ddab4c3.jpg",
@@ -17,6 +17,6 @@
   },
   "entrypoints": [
     "static/css/main.7bd9ddd5.css",
-    "static/js/main.ceedbd30.js"
+    "static/js/main.76dcd4f5.js"
   ]
 }
