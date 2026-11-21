@@ -72,7 +72,18 @@
       <p class="sub">Things I've built end to end. The three featured here have live demos you can try in your browser.</p>
     </div>
 
-    <article class="feature reveal">
+    <div class="showcase reveal" data-showcase>
+      <div class="showcase-nav">
+        <div class="showcase-tabs" role="tablist" aria-label="Featured projects"><button role="tab" aria-selected="true" aria-controls="feat-vms">Volunteer Management System</button><button role="tab" aria-selected="false" aria-controls="feat-dental">Magno Dental Clinic</button><button role="tab" aria-selected="false" aria-controls="feat-hiyas">Hiyas</button></div>
+        <div class="showcase-arrows">
+          <button class="arrow" data-dir="-1" aria-label="Previous project">‹</button>
+          <span class="showcase-count" aria-live="polite">1 / 3</span>
+          <button class="arrow" data-dir="1" aria-label="Next project">›</button>
+        </div>
+      </div>
+      <div class="showcase-viewport">
+        <div class="showcase-track">
+    <article id="feat-vms" role="tabpanel" aria-roledescription="slide" class="feature slide">
       <div class="feature-text">
         <p class="tag">Undergraduate research · full-stack web app</p>
         <h3>Volunteer Management System</h3>
@@ -102,7 +113,7 @@
       </div>
     </article>
 
-    <article class="feature reveal">
+    <article id="feat-dental" role="tabpanel" aria-roledescription="slide" class="feature slide">
       <div class="feature-text">
         <p class="tag">Offline-first web and desktop app · 2026</p>
         <h3>Magno Dental Clinic</h3>
@@ -133,7 +144,7 @@
       </div>
     </article>
 
-    <article class="feature flip reveal">
+    <article id="feat-hiyas" role="tabpanel" aria-roledescription="slide" class="feature flip slide">
       <div class="feature-text">
         <p class="tag">Offline-first Android app · 2026</p>
         <h3>Hiyas: jewelry business records</h3>
@@ -162,6 +173,9 @@
         </div>
       </div>
     </article>
+        </div>
+      </div>
+    </div>
 
     <div class="filters reveal" role="group" aria-label="Filter projects by technology">
       <button class="on" data-filter="all">All</button>

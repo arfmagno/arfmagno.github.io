@@ -90,6 +90,36 @@
     if (!reduce) timer = setInterval(function () { show((i + 1) % imgs.length) }, 4500)
   })
 
+  // ---- featured projects: tabs, arrows, swipe ----
+  $$('[data-showcase]').forEach(function (sc) {
+    var vp = $('.showcase-viewport', sc), track = $('.showcase-track', sc), slides = $$('.slide', sc)
+    var tabs = $$('.showcase-tabs button', sc), count = $('.showcase-count', sc), cur = 0
+    function fit () { vp.style.height = slides[cur].offsetHeight + 'px' }
+    function go (n) {
+      cur = (n + slides.length) % slides.length
+      track.style.transform = 'translateX(' + (-100 * cur) + '%)'
+      tabs.forEach(function (t, k) { t.setAttribute('aria-selected', String(k === cur)); t.tabIndex = k === cur ? 0 : -1 })
+      slides.forEach(function (s, k) { s.setAttribute('aria-hidden', String(k !== cur)); s.inert = k !== cur })
+      count.textContent = (cur + 1) + ' / ' + slides.length
+      fit()
+    }
+    tabs.forEach(function (t, k) { t.addEventListener('click', function () { go(k) }) })
+    $$('.arrow', sc).forEach(function (a) { a.addEventListener('click', function () { go(cur + Number(a.dataset.dir)) }) })
+    $('.showcase-tabs', sc).addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { go(cur + (e.key === 'ArrowRight' ? 1 : -1)); tabs[cur].focus() }
+    })
+    var x0 = null, y0 = 0
+    vp.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY }, { passive: true })
+    vp.addEventListener('touchend', function (e) {
+      if (x0 === null) return
+      var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1))
+    }, { passive: true })
+    window.addEventListener('resize', fit)
+    $$('img', sc).forEach(function (im) { im.addEventListener('load', fit) })
+    go(0)
+  })
+
   // ---- project filters ----
   $$('.filters:not(.mini) button').forEach(function (b) {
     b.addEventListener('click', function () {

@@ -255,3 +255,19 @@ h4 { font-size: 18px; letter-spacing: -.01em; margin: 0 0 8px; line-height: 1.35
 .pm-close { position: absolute; top: 0; right: -56px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #2a3040; background: #121722; color: #e7eaf1; font-size: 22px; line-height: 1; cursor: pointer; }
 .pm-note { text-align: center; color: #c9d1e0; font-size: 13.5px; margin: 12px 0 0; }
 .pm-note a { color: #9db7ff; }
+
+/* featured projects: one at a time, sliding sideways */
+.showcase { margin-bottom: 26px; }
+.showcase-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.showcase-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.showcase-tabs button { font: 600 13.5px Inter, sans-serif; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 99px; padding: 8px 14px; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
+.showcase-tabs button:hover { color: var(--text); }
+.showcase-tabs button[aria-selected="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.showcase-arrows { display: flex; align-items: center; gap: 8px; }
+.showcase-count { font: 600 12.5px "JetBrains Mono", monospace; color: var(--muted); min-width: 40px; text-align: center; }
+.arrow { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--text); font: 600 20px/1 Inter, sans-serif; cursor: pointer; display: grid; place-items: center; padding-bottom: 2px; }
+.arrow:hover { border-color: var(--accent); color: var(--accent); }
+.showcase-viewport { overflow: hidden; border-radius: 22px; transition: height .45s ease; }
+.showcase-track { display: flex; align-items: flex-start; transition: transform .45s ease; touch-action: pan-y; }
+.showcase .feature.slide { flex: 0 0 100%; min-width: 0; margin-bottom: 0; box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .showcase-viewport, .showcase-track { transition: none; } }
