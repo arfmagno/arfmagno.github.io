@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Squad · Ariel Raphael Magno</title>
+<meta name="description" content="Agent Squad: sixteen Claude Code agents with fixed roles, scripted gates and a challenger, carrying a ticket to a reviewed draft pull request.">
+<meta property="og:title" content="Agent Squad · Ariel Raphael Magno">
+<meta property="og:description" content="Full-stack software engineer. Public APIs, offline-first apps and reliable services in Node.js and TypeScript.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://arfmagno.github.io/agents.html">
+<meta property="og:image" content="https://arfmagno.github.io/assets/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ariel Raphael Magno, full-stack software engineer">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f6b4f'/%3E%3Cpath d='M7 23 11.5 9 16 19 20.5 9 25 23M9.2 17.5h4.6' fill='none' stroke='#fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://arfmagno.github.io/agents.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html"><span class="logo" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 23 11.5 9 16 19 20.5 9 25 23M9.2 17.5h4.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ariel Raphael Magno</a>
+    <nav aria-label="Sections">
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#work">SiteMinder</a>
+      <a href="agents.html" class="active" aria-current="page">AI workflow</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="nav-resume" href="assets/Ariel_Raphael_Magno_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+    <button class="theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap section" id="agents">
+    <p class="back"><a href="index.html#agents">← Back to the portfolio</a></p>
+    <div class="head reveal">
+      <p class="tag">AI workflow · 2026</p>
+      <h1 class="page-title">Agent Squad: AI agents with bounds they can't argue with</h1>
+      <p class="sub">Sixteen Claude Code agents with fixed roles that carry a ticket from investigation to a reviewed <b>draft</b> pull request, prove every step with evidence a script can check, argue against their own conclusions, and stop for a human only on exceptions. The core idea: <b>don't ask an agent to behave; set its bounds outside the agent.</b></p>
+    </div>
+
+    <div class="agent-grid">
+      <!-- pipeline simulator -->
+      <div class="sim card big reveal">
+        <div class="sim-head">
+          <h2 class="sm">Run a ticket through the pipeline</h2>
+          <div class="sim-controls">
+            <label class="sr" for="scenario">Scenario</label>
+            <select id="scenario">
+              <option value="happy">Everything passes</option>
+              <option value="test-edit">Builder tries to edit a test</option>
+              <option value="reviewer-write">Reviewer tries to fix the code</option>
+              <option value="weak-tests">New tests also pass on the old code</option>
+              <option value="challenge">Challenger finds a real flaw</option>
+              <option value="push">Orchestrator pushes to main</option>
+            </select>
+            <button class="btn small primary" id="sim-run">▶ Run</button>
+          </div>
+        </div>
+        <ol class="pipe" id="pipe">
+          <li data-step="scout">Scout</li>
+          <li data-step="investigator">Investigator</li>
+          <li data-step="challenge1" class="ch">Challenger</li>
+          <li data-step="G1" class="gate">G1</li>
+          <li data-step="tester">Tester</li>
+          <li data-step="builder">Builder</li>
+          <li data-step="verifier">Verifier</li>
+          <li data-step="G2" class="gate">G2</li>
+          <li data-step="reviewers">Reviewers ×2</li>
+          <li data-step="G3" class="gate">G3</li>
+          <li data-step="evaluator">Evaluator</li>
+          <li data-step="observer" class="ob">Observer</li>
+          <li data-step="G4" class="gate">G4</li>
+          <li data-step="pr">Draft PR + review loop</li>
+          <li data-step="G5" class="gate">G5</li>
+          <li data-step="human" class="human">You review last</li>
+        </ol>
+        <pre class="log tall" id="sim-log" aria-live="polite">Pick a scenario and press Run.</pre>
+      </div>
+
+      <!-- bounds ladder -->
+      <div class="card reveal">
+        <h2 class="sm">The enforcement ladder</h2>
+        <p>Start at the top. Only move down when the rung above is impossible.</p>
+        <div class="ladder" role="tablist" aria-label="Enforcement ladder">
+          <button role="tab" aria-selected="true" data-rung="0"><b>1</b> Remove the capability</button>
+          <button role="tab" aria-selected="false" data-rung="1"><b>2</b> Precondition outside the agent</button>
+          <button role="tab" aria-selected="false" data-rung="2"><b>3</b> Validate at write time</button>
+          <button role="tab" aria-selected="false" data-rung="3"><b>4</b> Detect and force a redo</button>
+          <button role="tab" aria-selected="false" data-rung="4"><b>5</b> Ask in a prompt</button>
+        </div>
+        <div class="rung" id="rung" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="cards three tight">
+      <article class="card reveal"><p class="tag">Separation of duties</p><h2 class="sm">The checker is never the maker</h2><p>The tester writes failing contract tests first; the builder can only write application code. That's decided by file path on every write, so it isn't a request in a prompt.</p></article>
+      <article class="card reveal"><p class="tag">Verify, don't trust</p><h2 class="sm">Evidence a script can check</h2><p>The verifier re-runs every check itself, and its commands must appear in the harness's own transcript. A negative control proves the new tests fail on the old code.</p></article>
+      <article class="card reveal"><p class="tag">Debate on evidence</p><h2 class="sm">A challenger with the opposite incentive</h2><p>It steelmans, then attacks each claim with evidence that exists. Upheld counters send work back; after two rounds, a human decides.</p></article>
+      <article class="card reveal"><p class="tag">Observability</p><h2 class="sm">An observer and efficiency metrics</h2><p>A script replays every tool call from the transcripts (scope creep, workarounds, stale evidence), and an LLM judges what a script can't. Prompt changes only after a lesson recurs on two tickets.</p></article>
+    </div>
+
+    <div class="roster reveal">
+      <div class="roster-head">
+        <h2 class="sm">Sixteen roles, each on the cheapest model that can do the job</h2>
+        <div class="filters mini" role="group" aria-label="Filter by model tier">
+          <button class="on" data-tier="all">All</button>
+          <button data-tier="haiku">Fast tier</button>
+          <button data-tier="sonnet">Mid tier</button>
+          <button data-tier="opus">Strongest tier</button>
+        </div>
+      </div>
+      <ul class="roster-list" id="roster"></ul>
+      <p class="note">Status: the single-agent workflow this grew from took about 30 production tickets to review-ready pull requests, at least two a day. The full squad has run on one production ticket so far, side by side with that workflow. Its gates and guards are covered by more than 280 automated tests; model tiers and budgets are still first guesses until there's more history.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p>© <span id="year">2026</span> Ariel Raphael Magno · Updated November 2026</p>
+  <p class="foot-links"><a href="https://www.linkedin.com/in/arfmagno/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/arfmagno" target="_blank" rel="noopener">GitHub</a><a href="assets/Ariel_Raphael_Magno_Resume.pdf" target="_blank" rel="noopener">Resume</a><a href="#main">Back to top ↑</a></p>
+</footer>
+<script src="app.js"></script>
+<script data-goatcounter="https://arfmagno.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

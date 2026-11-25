@@ -18,29 +18,18 @@
     root.setAttribute('data-theme', next)
     try { localStorage.setItem('theme', next) } catch (e) {}
   })
-  // Email: assembled here so simple scrapers miss it. A mailto link does nothing
-  // on computers without a mail app, so the button opens a small panel instead:
-  // copy the address, write in Gmail, or use the mail app.
-  var addr = ['arfmagno', 'gmail.com'].join('@'), mail = $('#mail'), panel = $('#mail-panel')
-  mail.href = 'mailto:' + addr
-  $('#mail-addr').textContent = addr
-  $('#mail-app').href = 'mailto:' + addr
-  $('#mail-gmail').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(addr)
-  mail.addEventListener('click', function (e) {
-    e.preventDefault()
-    panel.hidden = !panel.hidden
-    mail.setAttribute('aria-expanded', String(!panel.hidden))
-  })
-  $('#mail-copy').addEventListener('click', function () {
-    var btn = this
-    function done (ok) { btn.textContent = ok ? 'Copied ✓' : 'Select and copy above'; setTimeout(function () { btn.textContent = 'Copy address' }, 2000) }
+  // Email: the address is shown on the page; the button copies it.
+  var copy = $('#mail-copy')
+  if (copy) copy.addEventListener('click', function () {
+    var addr = $('#mail-addr').textContent
+    function done (ok) { copy.textContent = ok ? 'Copied ✓' : 'Select and copy'; setTimeout(function () { copy.textContent = 'Copy' }, 2000) }
     if (navigator.clipboard) navigator.clipboard.writeText(addr).then(function () { done(true) }, function () { done(false) })
     else done(false)
   })
   $('#year').textContent = new Date().getFullYear()
 
   // ---- scroll progress and active nav link ----
-  var bar = $('.progress'), links = $$('.nav nav a')
+  var bar = $('.progress'), links = $$('.nav nav a[href^="#"]')
   function onScroll () {
     var h = document.documentElement
     bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight) * 100) + '%'
@@ -72,7 +61,8 @@
     ['<span class="p">$</span> <span class="caret"></span>', 1]
   ]
   var term = $('#term')
-  if (reduce) term.innerHTML = lines.map(function (l) { return l[0] }).join('\n')
+  if (!term) {}
+  else if (reduce) term.innerHTML = lines.map(function (l) { return l[0] }).join('\n')
   else {
     (async function () {
       var out = ''
@@ -83,40 +73,23 @@
     })()
   }
 
-  // ---- counters ----
-  $$('[data-count]').forEach(function (el) {
-    if (reduce) return
-    var to = +el.dataset.count, pre = el.dataset.prefix || '', t0
-    var obs = new IntersectionObserver(function (es) {
-      if (!es[0].isIntersecting) return
-      obs.disconnect()
-      function step (t) { t0 = t0 || t; var k = Math.min(1, (t - t0) / 900); el.textContent = pre + Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step) }
-      requestAnimationFrame(step)
-    })
-    obs.observe(el)
-  })
-
   // ---- screenshot galleries ----
   $$('[data-gallery]').forEach(function (g) {
-    var imgs = $$('.shots img', g), tabs = $$('.thumbs button', g), i = 0, timer
+    var imgs = $$('.shots img', g), tabs = $$('.thumbs button', g)
     function show (n) {
-      i = n
       imgs.forEach(function (im, k) { im.classList.toggle('on', k === n) })
       tabs.forEach(function (b, k) { b.setAttribute('aria-selected', String(k === n)) })
     }
-    tabs.forEach(function (b, k) { b.addEventListener('click', function () { clearInterval(timer); show(k) }) })
-    if (!reduce) timer = setInterval(function () { show((i + 1) % imgs.length) }, 4500)
+    tabs.forEach(function (b, k) { b.addEventListener('click', function () { show(k) }) })
+    // No auto-rotation: content that moves on its own pulls attention and
+    // changes what the visitor is reading (WCAG 2.2.2). Visitors pick a screenshot.
   })
 
-  // ---- featured projects: tabs, swipe, auto-advance ----
-  // Advances when the active tab's progress bar finishes filling (a CSS
-  // animation). Pauses on hover or focus, off screen, and in a hidden tab.
+  // ---- featured projects: tabs and swipe (no auto-advance on purpose) ----
   $$('[data-showcase]').forEach(function (sc) {
     var vp = $('.showcase-viewport', sc), track = $('.showcase-track', sc), slides = $$('.slide', sc)
     var tabs = $$('.showcase-tabs button', sc), cur = 0
-    var hold = { hover: false, focus: false, away: true, hidden: false }
     function fit () { vp.style.height = slides[cur].offsetHeight + 'px' }
-    function sync () { sc.classList.toggle('paused', hold.hover || hold.focus || hold.away || hold.hidden) }
     function go (n) {
       cur = (n + slides.length) % slides.length
       track.style.transform = 'translateX(' + (-100 * cur) + '%)'
@@ -124,21 +97,12 @@
       slides.forEach(function (s, k) { s.classList.toggle('on', k === cur); s.setAttribute('aria-hidden', String(k !== cur)); s.inert = k !== cur })
       fit()
     }
-    if (!reduce) sc.classList.add('auto')
     tabs.forEach(function (t, k) {
       t.addEventListener('click', function () { go(k); t.blur() })
-      $('.st-bar i', t).addEventListener('animationend', function () { if (k === cur) go(cur + 1) })
     })
     $('.showcase-tabs', sc).addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { go(cur + (e.key === 'ArrowRight' ? 1 : -1)); tabs[cur].focus() }
     })
-    vp.addEventListener('mouseenter', function () { hold.hover = true; sync() })
-    vp.addEventListener('mouseleave', function () { hold.hover = false; sync() })
-    sc.addEventListener('focusin', function (e) { hold.focus = e.target.matches(':focus-visible'); sync() })
-    sc.addEventListener('focusout', function () { hold.focus = false; sync() })
-    document.addEventListener('visibilitychange', function () { hold.hidden = document.hidden; sync() })
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { hold.away = !es[0].isIntersecting; sync() }, { threshold: 0.35 }).observe(vp)
-    else hold.away = false
     var x0 = null, y0 = 0
     vp.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY }, { passive: true })
     vp.addEventListener('touchend', function (e) {
@@ -149,22 +113,14 @@
     }, { passive: true })
     window.addEventListener('resize', fit)
     $$('img', sc).forEach(function (im) { im.addEventListener('load', fit) })
-    go(0); sync()
-  })
-
-  // ---- project filters ----
-  $$('.filters:not(.mini) button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      $$('.filters:not(.mini) button').forEach(function (x) { x.classList.toggle('on', x === b) })
-      var f = b.dataset.filter
-      $$('#project-cards .card').forEach(function (c) { c.classList.toggle('hide', f !== 'all' && c.dataset.tags.split(' ').indexOf(f) < 0) })
-    })
+    go(0)
   })
 
   // ---- Hiyas demo in a phone frame ----
   // The demo's on-device database needs a cross-origin isolated page, which the
   // service worker (sw.js) provides. The first click may reload the page once.
   var pm = $('#phone-modal'), pf = $('#pm-frame'), DEMO = 'https://arfmagno.github.io/jewelry-mgt-mobile-app/'
+  if (pm) (function () {
   var canFrame = 'serviceWorker' in navigator && !!pm.showModal && location.protocol === 'https:'
   if (canFrame) navigator.serviceWorker.register('sw.js').catch(function () { canFrame = false })
   function openPhone () {
@@ -185,8 +141,10 @@
   try { if (sessionStorage.getItem('openPhone')) { sessionStorage.removeItem('openPhone'); if (window.crossOriginIsolated) openPhone(); else window.open(DEMO, '_blank', 'noopener') } } catch (err) {}
   $('#pm-close').addEventListener('click', function () { pm.close() })
   pm.addEventListener('click', function (e) { if (e.target === pm) pm.close() })
+  })()
 
-  // ---- enforcement ladder ----
+  // ---- agent page: ladder, roster, simulator (agents.html only) ----
+  if ($('#rung')) (function () {
   var rungs = [
     ['<b>Remove the capability.</b> The agent is never given the tool, credential or network. Nothing to misuse: an absence, not a rule.', 'Reviewers, the observer and the evaluator get no Write or Edit tool at all. Every agent has an explicit tool allowlist, and a checker proves each list fits its role.'],
     ['<b>A precondition outside the agent.</b> The next step is refused until an external check has passed. The agent cannot skip a gate it does not control.', 'The builder is refused until the contract tests exist and the gate passed. Hard call limits per role stop a runaway agent.'],
@@ -323,4 +281,5 @@
     }
     liveAgents(null); running = false; this.disabled = false
   })
+  })()
 })()
